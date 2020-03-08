@@ -605,7 +605,7 @@ assay(DESeq.ds, &quot;my_personal_normalization&quot;) &lt;- norm.counts</code><
 ##     }
 ##     dt
 ## }
-## &lt;bytecode: 0x000000002db2a030&gt;
+## &lt;bytecode: 0x000000002db4a7a0&gt;
 ## &lt;environment: namespace:DESeq2&gt;</code></pre>
 </div>
 <div id="for-estimatedispersions" class="section level4">
@@ -664,7 +664,7 @@ assay(DESeq.ds, &quot;my_personal_normalization&quot;) &lt;- norm.counts</code><
 ##     }
 ##     .local(object, ...)
 ## }
-## &lt;bytecode: 0x0000000028416e80&gt;
+## &lt;bytecode: 0x0000000028423340&gt;
 ## &lt;environment: namespace:DESeq2&gt;
 ## 
 ## Signatures:
@@ -683,8 +683,8 @@ assay(DESeq.ds, &quot;my_personal_normalization&quot;) &lt;- norm.counts</code><
 ## 
 ## function (object, ...) 
 ## standardGeneric(&quot;estimateDispersions&quot;)
-## &lt;bytecode: 0x000000001844f130&gt;
-## &lt;environment: 0x00000000184482e0&gt;
+## &lt;bytecode: 0x000000001844ed90&gt;
+## &lt;environment: 0x0000000018447f40&gt;
 ## Methods may be defined for arguments: object
 ## Use  showMethods(&quot;estimateDispersions&quot;)  for currently available ones.</code></pre>
 </div>
@@ -777,7 +777,7 @@ assay(DESeq.ds, &quot;my_personal_normalization&quot;) &lt;- norm.counts</code><
 ##     }
 ##     normalizedData
 ## }
-## &lt;bytecode: 0x000000002fce1c00&gt;
+## &lt;bytecode: 0x000000002fcffb10&gt;
 ## &lt;environment: namespace:DESeq2&gt;</code></pre>
 </div>
 </div>
@@ -787,7 +787,7 @@ assay(DESeq.ds, &quot;my_personal_normalization&quot;) &lt;- norm.counts</code><
 <h4>1. In your own words, describe how DESeq2 calculate a p-value that you can use to decide whether a given genes shows different expression values when comparing two conditions of interest. Start from what types of values are used as the measurements.</h4>
 <p>The calculation of p-value uses the unlogged sizefacotr-normalized read counts as the starting point. First calculated the mean counts of genes across all samples, and log2 fold change of mean counts by the condition SNF2 over WT.</p>
 <p>In <code>results()</code> we set <code>independentFiltering = T</code> and <code>alpha = 0.05</code> . The filtering step would maximize the number of genes that reject the null hypothesis, which means under the preset alpha cutoff, in this case 0.05. The p values of genes that are not selected would be set to NA.</p>
-<p>Utilize dispersion and size factors to calculate negative binomial GLM fitting paramter beta. Then Wald test is implemented to calculate p-value using betas, and meanwhile implemeting the filtering step.</p>
+<p>Utilize dispersion and size factors to calculate negative binomial GLM fitting paramter beta. After fitting, a parameter matrix of beta and a standard error matrix of beta are retained, and a wald statistic is calculated as beta divided by the error. This wald statistic can be viewed as a z-score, and a probability of getting as extreme or more than it can be calculated under a standard norm distribution and the results are p-values.</p>
 <p>Cook’s distance would be calculated for each read counts to detect outliers, a numeric that indicate the influence of a data point to least-square regression. The p values of those higher than a default threshold of 0.99 would be set to NA.</p>
 <p>Finally, the p-values are adjusted by using the default Benjamini–Hochberg (BH), a kind of ranking correction.</p>
 </div>

@@ -144,7 +144,7 @@ The calculation of p-value uses the unlogged sizefacotr-normalized read counts a
 
 In `results()` we set `independentFiltering = T` and `alpha = 0.05` . The filtering step would maximize the number of genes that reject the null hypothesis, which means under the preset alpha cutoff, in this case 0.05. The p values of genes that are not selected would be set to NA. 
 
-Utilize dispersion and size factors to calculate negative binomial GLM fitting paramter beta. Then Wald test is implemented to calculate p-value using betas, and meanwhile implemeting the filtering step.
+Utilize dispersion and size factors to calculate negative binomial GLM fitting paramter beta. After fitting, a parameter matrix of beta and a standard error matrix of beta are retained, and a wald statistic is calculated as beta divided by the error. This wald statistic can be viewed as a z-score, and a probability of getting as extreme or more than it can be calculated under a standard norm distribution and the results are p-values.
 
 Cook's distance would be calculated for each read counts to detect outliers, a numeric that indicate the influence of a data point to least-square regression. The p values of those higher than a default threshold of 0.99 would be set to NA.
 
